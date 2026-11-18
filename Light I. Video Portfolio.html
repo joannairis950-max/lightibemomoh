@@ -1,0 +1,1047 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Light I. Video Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the page is one long edit. A sticky header carries a timecode that runs as you scroll, the hero is a playable 30s ad timeline, and every section is a scene with its in-point. */
+:root{
+  --bg:#ECEDE8; --panel:#F6F7F3; --bg2:#E0E3DC; --fg:#14181B; --muted:#586168; --line:#C8CCC3;
+  --accent:#3A4BEE; --on-accent:#FFFFFF;
+  --c-vid:#1F7A6E; --c-aud:#94610A; --c-txt:#A33C78; --c-fx:#3A4BEE;
+  --f-display:'Bricolage Grotesque','Arial Narrow',system-ui,sans-serif;
+  --f-body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1114; --panel:#151A1F; --bg2:#1C2228; --fg:#E7EAE5; --muted:#9BA4AA; --line:#29313A;
+    --accent:#8C98FF; --on-accent:#0E1114;
+    --c-vid:#2A8B7E; --c-aud:#B37A1C; --c-txt:#B64A8B; --c-fx:#5767F0;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1114; --panel:#151A1F; --bg2:#1C2228; --fg:#E7EAE5; --muted:#9BA4AA; --line:#29313A;
+  --accent:#8C98FF; --on-accent:#0E1114;
+  --c-vid:#2A8B7E; --c-aud:#B37A1C; --c-txt:#B64A8B; --c-fx:#5767F0;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:400 16px/1.6 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1160px;margin:0 auto}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.mono{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
+.bar{max-width:1160px;margin:0 auto;display:flex;align-items:center;gap:20px;height:62px}
+.brand{font:700 1.15rem var(--f-display);letter-spacing:-.02em;text-decoration:none;margin-right:auto}
+.nav{display:flex;gap:22px}
+.nav a{font-size:.9rem;text-decoration:none;color:var(--muted);transition:color .2s}
+.nav a:hover{color:var(--fg)}
+.tc{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.rec{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 1.6s steps(2,jump-none) infinite}
+.iconbtn{width:38px;height:38px;border:1px solid var(--line);background:transparent;border-radius:6px;display:grid;place-items:center;transition:border-color .2s,background .2s}
+.iconbtn:hover{border-color:var(--fg)}
+.iconbtn svg{width:18px;height:18px}
+.prog{height:2px;background:var(--line);max-width:1160px;margin:0 auto}
+.prog i{display:block;height:100%;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
+@keyframes blink{50%{opacity:.25}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.55em;padding:.8em 1.25em;border:1px solid var(--fg);border-radius:6px;background:transparent;text-decoration:none;font-weight:500;font-size:.95rem;transition:transform .25s cubic-bezier(.2,.7,.2,1),background .2s,color .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.sm{padding:.5em .9em;font-size:.85rem}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(4px)}
+
+/* hero */
+.hero{position:relative;padding-block:clamp(40px,7vw,88px) clamp(40px,6vw,72px);--mx:70%;--my:20%}
+.hero::before{content:"";position:absolute;inset:-40px -16px 0;background:radial-gradient(520px circle at var(--mx) var(--my),color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%);pointer-events:none}
+.hero>*{position:relative}
+.eyebrow{color:var(--muted);margin:0 0 22px;animation:rise .7s both}
+h1{font:700 clamp(2.9rem,9.6vw,7.4rem)/.92 var(--f-display);font-variation-settings:"wdth" 80;letter-spacing:-.035em;margin:0;text-wrap:balance;max-width:14ch}
+h1 .w{display:inline-block;animation:rise .85s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*80ms + 120ms)}
+.rel{position:relative;display:inline-block;color:var(--accent)}
+.rel svg{position:absolute;left:-2%;bottom:-.16em;width:104%;height:.26em;overflow:visible}
+.rel path{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.1s .95s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes rise{from{opacity:0;transform:translateY(.45em)}to{opacity:1;transform:none}}
+.lede{max-width:56ch;font-size:clamp(1.02rem,1.6vw,1.2rem);color:var(--muted);margin:28px 0 30px;animation:rise .8s .55s both}
+.lede b{color:var(--fg);font-weight:500}
+.cta{display:flex;flex-wrap:wrap;gap:12px;animation:rise .8s .7s both}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin:26px 0 0;padding:0;list-style:none;color:var(--muted);font-size:.9rem;animation:rise .8s .85s both}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts li::before{content:"";width:5px;height:5px;background:var(--accent);border-radius:50%}
+
+/* editor */
+.editor{margin-top:clamp(36px,5vw,64px);background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;animation:rise .9s .95s both}
+.ed-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--muted)}
+.ed-body{display:grid;grid-template-columns:200px minmax(0,1fr);gap:22px;padding:18px 16px}
+.phone{width:100%;max-width:200px;aspect-ratio:9/16;border:5px solid var(--fg);border-radius:24px;overflow:hidden;position:relative;background:#111;align-self:start}
+.screen{position:absolute;inset:0;overflow:hidden;color:#fff}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity .35s}
+.screen[data-scene="hook"] .sc-hook,.screen[data-scene="avatar"] .sc-avatar,.screen[data-scene="broll"] .sc-broll,.screen[data-scene="proof"] .sc-proof,.screen[data-scene="cta"] .sc-cta{opacity:1}
+.sc-hook{background:linear-gradient(160deg,#3A4BEE,#0B0D2E)}
+.ring{position:absolute;left:50%;top:42%;width:50%;aspect-ratio:1;border:2px solid rgba(255,255,255,.6);border-radius:50%;transform:translate(-50%,-50%);animation:ring 1.6s ease-out infinite}
+.ring:nth-child(2){animation-delay:.5s}.ring:nth-child(3){animation-delay:1s}
+@keyframes ring{from{transform:translate(-50%,-50%) scale(.3);opacity:1}to{transform:translate(-50%,-50%) scale(2.2);opacity:0}}
+.sc-avatar{background:linear-gradient(180deg,#6E8A94,#2F4249)}
+.head{position:absolute;left:50%;top:26%;width:34%;aspect-ratio:1;border-radius:50%;background:#C9D3D6;transform:translateX(-50%)}
+.body{position:absolute;left:50%;top:52%;width:70%;height:60%;border-radius:50% 50% 0 0;background:#1E2A30;transform:translateX(-50%)}
+.mouth{position:absolute;left:50%;top:64%;width:9%;height:6%;background:#2F4249;border-radius:99px;transform:translateX(-50%);animation:talk .28s ease-in-out infinite alternate;z-index:1}
+.head .mouth{display:none}
+@keyframes talk{from{transform:translateX(-50%) scaleY(.4)}to{transform:translateX(-50%) scaleY(1.5)}}
+.sc-broll{background:linear-gradient(120deg,#B37A1C,#A33C78,#3A4BEE);background-size:240% 240%;animation:sweep 6s ease-in-out infinite alternate}
+@keyframes sweep{to{background-position:100% 100%}}
+.blk{position:absolute;border-radius:10px;background:rgba(255,255,255,.88);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.blk.a{left:18%;top:26%;width:40%;height:26%;animation:float 3.2s ease-in-out infinite alternate}
+.blk.b{right:14%;top:48%;width:30%;height:18%;background:rgba(14,17,20,.7);animation:float 2.6s .4s ease-in-out infinite alternate-reverse}
+@keyframes float{to{transform:translateY(-14px) rotate(-3deg)}}
+.sc-proof{background:linear-gradient(180deg,#14282B,#0B1517)}
+.bars{position:absolute;left:14%;right:14%;top:26%;height:34%;display:flex;align-items:flex-end;gap:8%}
+.bars i{flex:1;background:#4FB8A8;border-radius:3px 3px 0 0;height:30%;animation:grow 1.8s ease-in-out infinite alternate}
+.bars i:nth-child(2){height:50%;animation-delay:.2s}.bars i:nth-child(3){height:70%;animation-delay:.4s}.bars i:nth-child(4){height:90%;animation-delay:.6s}
+@keyframes grow{to{transform:scaleY(.72)}}
+.sc-cta{background:linear-gradient(160deg,#A33C78,#3A4BEE)}
+.pill{position:absolute;left:50%;top:40%;transform:translateX(-50%);padding:.7em 1.4em;border-radius:99px;background:#fff;color:#14181B;font:600 .78rem var(--f-body);animation:pulse 1.2s ease-in-out infinite alternate}
+@keyframes pulse{to{transform:translateX(-50%) scale(1.1)}}
+.cap{position:absolute;left:8%;right:8%;bottom:14%;text-align:center;font:700 .82rem/1.25 var(--f-display);text-shadow:0 2px 8px rgba(0,0,0,.6);z-index:2}
+.cap span{display:inline-block;padding:0 .12em;border-radius:3px;transition:background .1s}
+.cap span.on{background:#FFD84A;color:#14181B;text-shadow:none}
+.tag{position:absolute;left:8px;top:8px;z-index:2;padding:3px 7px;background:rgba(0,0,0,.55);border-radius:4px;font:500 .6rem var(--f-mono);letter-spacing:.05em;text-transform:uppercase}
+.timeline{min-width:0}
+.lanes{position:relative;--lbl:34px;--p:0;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none;padding-top:2px}
+.ruler{position:relative;height:22px;margin-left:var(--lbl);border-bottom:1px solid var(--line)}
+.ruler i{position:absolute;bottom:0;width:1px;height:5px;background:var(--line)}
+.ruler i.m{height:10px;background:var(--muted)}
+.ruler b{position:absolute;top:0;transform:translateX(-50%);font:400 .65rem var(--f-mono);color:var(--muted)}
+.ruler b:first-of-type{transform:none}
+.row{display:grid;grid-template-columns:var(--lbl) minmax(0,1fr);align-items:center;height:38px;margin-top:6px}
+.row .tn{font:500 .7rem var(--f-mono);color:var(--muted)}
+.lane{position:relative;height:100%;background:var(--bg2);border-radius:6px}
+.clip{position:absolute;top:3px;bottom:3px;left:calc(var(--s)/30*100%);width:calc((var(--e) - var(--s))/30*100% - 3px);border-radius:5px;padding:0 8px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;font:500 .68rem var(--f-mono);color:#fff;transition:filter .2s,box-shadow .2s}
+.clip.v{background:var(--c-vid)}.clip.a{background:var(--c-aud)}.clip.t{background:var(--c-txt)}.clip.f{background:var(--c-fx)}
+.clip.live{box-shadow:0 0 0 2px var(--fg);filter:brightness(1.12);z-index:1}
+.wf{position:absolute;inset:0;display:flex;align-items:center;gap:2px;padding:0 4px;opacity:.55}
+.wf i{flex:1;min-width:1px;max-width:3px;background:#fff;border-radius:2px}
+.clip span{position:relative;z-index:1}
+.ph{position:absolute;top:0;bottom:0;left:calc(var(--lbl) + (100% - var(--lbl))*var(--p));width:2px;margin-left:-1px;background:var(--accent);pointer-events:none;z-index:3}
+.ph::before{content:"";position:absolute;top:0;left:50%;width:12px;height:12px;background:var(--accent);transform:translate(-50%,0);clip-path:polygon(0 0,100% 0,50% 100%)}
+.ed-foot{display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;padding:12px 16px;border-top:1px solid var(--line)}
+.ed-foot .btn{padding:.45em .9em;font-size:.85rem}
+.ed-foot .now{font-family:var(--f-mono);font-size:.82rem;font-variant-numeric:tabular-nums;color:var(--muted)}
+.ed-foot .now b{color:var(--fg);font-weight:500}
+
+/* sections */
+section.s{padding-block:clamp(56px,9vw,120px)}
+.sec-label{display:flex;justify-content:space-between;gap:12px;color:var(--muted);padding-bottom:10px;margin-bottom:34px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,var(--muted) 1px,transparent 1px) 0 100%/20px 6px repeat-x;background-size:20px 6px;background-repeat:repeat-x;background-position:0 100%}
+.sec-label{border-bottom:0;padding-bottom:14px}
+h2{font:600 clamp(1.9rem,4.6vw,3.3rem)/1 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.03em;margin:0 0 14px;text-wrap:balance;max-width:20ch}
+.sub{color:var(--muted);max-width:58ch;margin:0 0 40px}
+[data-rev]{transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.pre{opacity:.3;transform:translateY(22px)}
+
+/* services */
+.svc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.svc li{border-bottom:1px solid var(--line)}
+.svc-btn{width:100%;display:grid;grid-template-columns:64px minmax(0,1fr) auto 22px;align-items:center;gap:18px;padding:20px 4px;border:0;background:transparent;text-align:left;transition:padding .3s,background .3s}
+.svc-btn:hover{padding-left:14px;background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.ratio{height:32px;aspect-ratio:var(--ar);max-width:64px;border:1.5px solid var(--muted);border-radius:3px;justify-self:center;transition:border-color .3s,background .3s,transform .4s cubic-bezier(.2,.7,.2,1)}
+.svc-btn[aria-expanded="true"] .ratio,.svc-btn:hover .ratio{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.svc-btn:hover .ratio{transform:scale(1.08)}
+.svc-name{font:600 clamp(1.1rem,2.4vw,1.55rem)/1.2 var(--f-display);letter-spacing:-.015em}
+.svc-tools{color:var(--muted);text-align:right}
+.chev{width:12px;height:12px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .3s;justify-self:center;margin-top:-4px}
+.svc-btn[aria-expanded="true"] .chev{transform:rotate(225deg);margin-top:4px}
+.svc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1)}
+.svc-panel>div{overflow:hidden;min-height:0}
+.svc-btn[aria-expanded="true"]+.svc-panel{grid-template-rows:1fr}
+.svc-panel p{margin:0 0 6px 82px;max-width:60ch;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 22px 82px}
+.chip{padding:.28em .75em;border:1px solid var(--line);border-radius:99px;font-size:.82rem;color:var(--muted);background:var(--panel)}
+
+/* process */
+.steps{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;--lp:0;padding-top:34px}
+.steps::before,.steps::after{content:"";position:absolute;left:0;right:0;top:7px;height:2px;background:var(--line)}
+.steps::after{background:var(--accent);transform:scaleX(var(--lp));transform-origin:left}
+.step{position:relative}
+.step::before{content:"";position:absolute;top:-34px;left:0;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--line);transition:background .4s,border-color .4s;z-index:1;margin-top:0}
+.step.on::before{background:var(--accent);border-color:var(--accent)}
+.step h3{font:600 1.3rem var(--f-display);margin:0 0 6px;letter-spacing:-.015em}
+.step .k{color:var(--muted);margin-bottom:6px;display:block}
+.step p{margin:0 0 12px;color:var(--muted);font-size:.95rem}
+.step .chips{margin:0}
+.step .chip{font-size:.76rem;transition:transform .2s,border-color .2s,color .2s}
+.step .chip:hover{transform:translateY(-2px);border-color:var(--accent);color:var(--fg)}
+
+/* case */
+.case{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.stage{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 16px 14px;display:flex;flex-direction:column;align-items:center;gap:14px;min-height:380px;justify-content:center}
+.frame{--h:clamp(190px,46vw,290px);height:var(--h);width:calc(var(--h)*16/9);max-width:100%;position:relative;overflow:hidden;border-radius:8px;transition:width .7s cubic-bezier(.2,.7,.2,1),box-shadow .4s;background:#222;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+.frame.reframe{width:calc(var(--h)*9/16)}
+.inner{position:absolute;inset:0;filter:saturate(.65) contrast(.9) brightness(.95);transition:filter .6s}
+.frame.grade .inner{filter:saturate(1.3) contrast(1.14) brightness(1.04)}
+.layer{position:absolute;inset:0;transition:transform .6s;transform-origin:50% 60%}
+.frame.zoom .layer{animation:push 5s ease-in-out infinite alternate}
+@keyframes push{from{transform:scale(1)}to{transform:scale(1.18)}}
+.fx-bg{position:absolute;inset:0;background:linear-gradient(135deg,#7C6E5C,#4A4F5C);transition:opacity .6s}
+.fx-bg2{position:absolute;inset:0;background:linear-gradient(135deg,#1F7A6E,#3A4BEE);opacity:0;transition:opacity .6s}
+.frame.bg .fx-bg2{opacity:1}
+.dot{position:absolute;top:52%;width:15%;aspect-ratio:1;border-radius:50%;background:#F5F1E6;box-shadow:0 0 0 6px rgba(255,255,255,.18);animation:travel 3.4s ease-in-out infinite alternate}
+@keyframes travel{from{left:12%}to{left:72%}}
+.frame.reframe .dot{animation-name:travel-v}
+@keyframes travel-v{from{top:26%;left:34%}to{top:62%;left:34%}}
+.fx-sub{position:absolute;left:6%;right:6%;top:9%;text-align:center;font:600 .78rem var(--f-mono);letter-spacing:.06em;color:#fff;background:rgba(0,0,0,.5);padding:.35em .6em;transition:all .4s}
+.frame.text .fx-sub{background:transparent;font:700 1.02rem var(--f-display);letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.6);top:70%}
+.fx-logo{position:absolute;right:5%;bottom:6%;padding:.3em .6em;border:1px solid rgba(255,255,255,.7);color:#fff;font:700 .7rem var(--f-mono);transition:filter .5s,opacity .5s}
+.frame.blur .fx-logo{filter:blur(7px);opacity:.25}
+.stage-label{color:var(--muted);display:flex;gap:14px;align-items:center}
+.toggles{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.tg{padding:.5em .95em;border:1px solid var(--line);background:var(--panel);border-radius:6px;font-size:.9rem;transition:all .2s}
+.tg:hover{border-color:var(--fg)}
+.tg[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.case h3{font:600 1.45rem/1.2 var(--f-display);margin:0 0 10px;letter-spacing:-.02em}
+.case p{color:var(--muted);margin:0 0 18px;max-width:52ch}
+.count{font-family:var(--f-mono);font-size:.82rem;color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.count button{border:0;background:none;padding:0;text-decoration:underline;text-underline-offset:3px;color:var(--fg);font:inherit}
+
+/* proof */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:clamp(40px,6vw,72px)}
+.stat{padding:26px 18px 26px 0}
+.stat+.stat{padding-left:18px;border-left:1px solid var(--line)}
+.stat b{display:block;font:600 clamp(2.2rem,5vw,3.6rem)/1 var(--f-display);font-variation-settings:"wdth" 84;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:.9rem}
+.quotes{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(24px,5vw,64px)}
+.qpick{display:flex;flex-direction:column;gap:6px}
+.qb{display:flex;flex-direction:column;gap:2px;text-align:left;padding:14px 16px;border:1px solid transparent;border-left:2px solid var(--line);background:transparent;border-radius:0 6px 6px 0;transition:background .25s,border-color .25s}
+.qb:hover{background:var(--panel)}
+.qb[aria-selected="true"]{background:var(--panel);border-left-color:var(--accent)}
+.qb strong{font-weight:600}
+.qb small{color:var(--muted);font-size:.82rem}
+.qbody{min-height:260px;position:relative}
+.qtext{font:500 clamp(1.15rem,2.2vw,1.6rem)/1.4 var(--f-display);letter-spacing:-.01em;margin:0 0 22px;transition:opacity .3s,transform .4s}
+.qtext.out{opacity:0;transform:translateY(8px)}
+.qmeta{color:var(--muted)}
+.qbar{position:absolute;left:0;bottom:-18px;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px)}
+.story p{font-size:1.1rem;margin:0 0 18px;max-width:54ch}
+.story p:first-child{font:500 clamp(1.3rem,2.6vw,1.9rem)/1.3 var(--f-display);letter-spacing:-.015em}
+.cols h3{font:500 .78rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.list{list-style:none;margin:0 0 30px;padding:0}
+.list li{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid var(--line);transition:padding .25s}
+.list li:hover{padding-left:8px}
+.list em{font-style:normal;color:var(--muted);font-size:.88rem;text-align:right;flex:none}
+
+/* contact */
+.brief{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.field{margin:0 0 26px;border:0;padding:0;min-width:0}
+.field legend,.field label.l{display:block;font:500 .78rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding:0}
+.field .toggles{margin:0}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select,textarea{width:100%;padding:.7em .85em;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:6px;font:inherit}
+textarea{min-height:92px;resize:vertical}
+.len{display:flex;justify-content:space-between;color:var(--muted);font-family:var(--f-mono);font-size:.8rem}
+.len b{color:var(--fg);font-weight:500}
+.out{position:sticky;top:96px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.out .mono{color:var(--muted);display:block;margin-bottom:12px}
+.msg{white-space:pre-wrap;font-size:1rem;margin:0 0 18px;min-height:150px;overflow-wrap:anywhere}
+.out .row2{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.hint{color:var(--muted);font-size:.85rem;margin:14px 0 0}
+footer{padding-block:34px 56px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--muted);font-size:.88rem}
+
+/* responsive */
+@media (max-width:980px){
+  .nav{display:none}
+  .steps{grid-template-columns:1fr;gap:34px;padding-top:0;padding-left:34px}
+  .steps::before,.steps::after{left:7px;right:auto;top:0;bottom:0;width:2px;height:auto}
+  .steps::after{transform:scaleY(var(--lp));transform-origin:top}
+  .step::before{top:4px;left:-34px}
+  .case,.about,.brief,.quotes{grid-template-columns:1fr}
+  .out{position:static}
+}
+@media (max-width:760px){
+  .ed-body{grid-template-columns:1fr}
+  .phone{max-width:168px;margin:0 auto}
+  .svc-btn{grid-template-columns:48px minmax(0,1fr) 22px}
+  .svc-tools{display:none}
+  .svc-panel p,.chips{margin-left:66px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){padding-left:0;border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .tc .lbl{display:none}
+  .sec-label .r{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  html{scroll-behavior:auto}
+  .pre{opacity:1;transform:none}
+  .rel path{stroke-dashoffset:0}
+}
+</style>
+<style>
+/* Section colors: each scene owns one accent. Tints are derived from it so both themes stay consistent. */
+:root{--tone-0:#3A4BEE;--tone-1:#7A3FD1;--tone-2:#0E7C70;--tone-3:#C2510F;--tone-4:#C02A66;--tone-5:#3F7D1E;--tone-6:#1B66D6;--wa:#14804A}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--tone-0:#8C98FF;--tone-1:#B794FF;--tone-2:#4FD1BF;--tone-3:#FF9A57;--tone-4:#FF7FB0;--tone-5:#9BDC6B;--tone-6:#7DB2FF}
+}
+:root[data-theme="dark"]{--tone-0:#8C98FF;--tone-1:#B794FF;--tone-2:#4FD1BF;--tone-3:#FF9A57;--tone-4:#FF7FB0;--tone-5:#9BDC6B;--tone-6:#7DB2FF}
+html{overflow-x:clip}
+.t1{--accent:var(--tone-1)}.t2{--accent:var(--tone-2)}.t3{--accent:var(--tone-3)}.t4{--accent:var(--tone-4)}.t5{--accent:var(--tone-5)}.t6{--accent:var(--tone-6)}
+section.s{position:relative;isolation:isolate}
+section.s::before{content:"";position:absolute;inset:0 calc(50% - 50vw);z-index:-1;background:color-mix(in srgb,var(--accent) 9%,var(--bg));border-top:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.sec-label span:first-child{color:var(--accent)}
+.sec-label{background-image:linear-gradient(90deg,var(--accent) 1px,transparent 1px)}
+h2{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:.07em;text-underline-offset:.14em;text-decoration-skip-ink:none}
+.top .btn.primary,.top .prog i,.top .rec{transition:background .5s,border-color .5s}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#fff}
+
+/* chat */
+.chat-fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;padding:12px 18px;border:0;border-radius:99px;background:var(--wa);color:#fff;font-weight:600;box-shadow:0 8px 28px rgba(0,0,0,.3);transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.chat-fab:hover{transform:translateY(-3px)}
+.chat-fab svg{width:20px;height:20px}
+.chat{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:41;width:min(360px,calc(100vw - 32px));height:min(540px,calc(100dvh - 150px));display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.32);opacity:0;visibility:hidden;transform:translateY(14px) scale(.98);transform-origin:100% 100%;transition:opacity .25s,transform .35s cubic-bezier(.2,.7,.2,1),visibility 0s .35s}
+.chat.open{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.chat-h{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--wa);color:#fff}
+.chat-h .av{width:34px;height:34px;border-radius:50%;background:#fff;color:var(--wa);display:grid;place-items:center;font:700 1rem var(--f-display);flex:none}
+.chat-h div{min-width:0;flex:1;line-height:1.25}
+.chat-h strong{display:block;font-weight:600}
+.chat-h small{opacity:.9;font-size:.78rem}
+.chat-h button{border:0;background:transparent;color:#fff;width:30px;height:30px;font-size:1.3rem;line-height:1;border-radius:6px}
+.chat-h button:hover{background:rgba(255,255,255,.18)}
+.chat-log{overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:0}
+.m{max-width:86%;padding:9px 12px;border-radius:12px 12px 12px 3px;background:var(--bg2);font-size:.92rem;line-height:1.45;overflow-wrap:anywhere;animation:rise .3s both}
+.m.me{align-self:flex-end;border-radius:12px 12px 3px 12px;background:var(--accent);color:var(--on-accent)}
+.m .wa-btn{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:.6em 1em;border-radius:8px;background:var(--wa);color:#fff;text-decoration:none;font-weight:600}
+.m .again{display:block;margin-top:8px;border:0;background:none;padding:0;color:var(--muted);text-decoration:underline;font-size:.85rem}
+.m .num{display:block;margin-top:8px;font-size:.82rem;color:var(--muted);user-select:text}
+.typing{display:flex;gap:4px;padding:12px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:dot 1s ease-in-out infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{50%{transform:translateY(-4px);opacity:.4}}
+.chat-r{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}
+.rp{padding:.4em .85em;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:99px;font-size:.84rem;transition:background .2s,color .2s}
+.rp:hover{background:var(--accent);color:var(--on-accent)}
+.chat-f{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.chat-f input{flex:1;min-width:0;padding:.6em .8em;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:8px;font:inherit}
+.chat-f button{padding:.6em 1em;border:0;border-radius:8px;background:var(--accent);color:var(--on-accent);font-weight:600}
+@media (max-width:420px){.chat-fab span{display:none}.chat-fab{padding:14px}}
+</style>
+<style>
+/* Pop pass: louder type, hard shadows, a yellow sticker and tape, stronger section color. */
+:root{--pop:#FFD84A;--ink:#14181B}
+h1{font-size:clamp(3.2rem,11.5vw,9.2rem);line-height:.88;max-width:11ch}
+h2{font-size:clamp(2.3rem,6vw,4.4rem);max-width:16ch}
+.hero{isolation:isolate}
+.hero::before{background:radial-gradient(560px circle at var(--mx) var(--my),color-mix(in srgb,var(--accent) 30%,transparent),transparent 70%)}
+.hero::after{content:"";position:absolute;inset:-40px -16px 0;z-index:-1;background-image:radial-gradient(color-mix(in srgb,var(--fg) 18%,transparent) 1.2px,transparent 1.2px);background-size:22px 22px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 75%);mask-image:linear-gradient(180deg,#000,transparent 75%);pointer-events:none}
+.btn.primary{box-shadow:4px 4px 0 var(--fg)}
+.btn.primary:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--fg)}
+.btn.primary:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--fg)}
+.btn:not(.primary):hover{background:var(--fg);color:var(--bg)}
+.sticker{position:absolute;right:2%;top:clamp(8px,3vw,40px);width:clamp(110px,14vw,170px);aspect-ratio:1;border-radius:50%;background:var(--pop);color:var(--ink);display:grid;place-content:center;text-align:center;transform:rotate(10deg);box-shadow:5px 5px 0 var(--fg);animation:wob 5s ease-in-out infinite alternate;z-index:2}
+.sticker b{font:800 clamp(2rem,4.6vw,3.4rem)/1 var(--f-display);letter-spacing:-.03em}
+.sticker span{font:600 .7rem/1.25 var(--f-mono);text-transform:uppercase;letter-spacing:.04em;padding:0 14%}
+@keyframes wob{to{transform:rotate(-4deg) translateY(-6px)}}
+.tape{width:110vw;margin-left:calc(50% - 55vw);margin-block:8px 0;overflow:hidden;background:var(--pop);color:var(--ink);transform:rotate(-1.4deg);padding:14px 0;border-block:2px solid var(--ink);position:relative;z-index:3}
+.tape-in{display:flex;width:max-content;animation:marq 32s linear infinite}
+.tape:hover .tape-in{animation-play-state:paused}
+.tape .set{display:flex}
+.tape .set span{display:flex;align-items:center;font:800 clamp(1.3rem,3vw,2.1rem)/1 var(--f-display);font-variation-settings:"wdth" 80;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap}
+.tape .set span::after{content:"";width:12px;height:12px;background:var(--ink);border-radius:50%;margin:0 28px}
+@keyframes marq{to{transform:translateX(-50%)}}
+section.s::before{background:color-mix(in srgb,var(--accent) 17%,var(--bg));border-top:2px solid color-mix(in srgb,var(--accent) 55%,transparent)}
+section.s::after{content:attr(data-ghost);position:absolute;right:0;top:clamp(16px,3vw,40px);font:800 clamp(4rem,12vw,10rem)/.8 var(--f-display);font-variation-settings:"wdth" 75;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:2px color-mix(in srgb,var(--accent) 42%,transparent);z-index:-1;pointer-events:none;white-space:nowrap}
+.svc-name{font-size:clamp(1.3rem,3vw,2.1rem)}
+.svc-btn[aria-expanded="true"]{background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.svc-btn:hover{background:var(--accent);color:var(--on-accent);padding-left:18px}
+.svc-btn:hover .svc-tools{color:inherit}
+.svc-btn:hover .ratio{border-color:var(--on-accent);background:transparent}
+.svc-btn:hover .chev{border-color:var(--on-accent)}
+.stat b{color:var(--accent);font-size:clamp(3rem,7.5vw,5.8rem)}
+.qbody::before{content:"\201C";display:block;font:800 7rem/1 var(--f-display);color:var(--accent);height:3.4rem;margin-top:-.2rem}
+.qtext.long{font-size:clamp(1rem,1.7vw,1.2rem);line-height:1.55}
+.tg[aria-pressed="true"]{box-shadow:3px 3px 0 var(--fg)}
+.chat-fab{box-shadow:4px 4px 0 var(--ink)}
+@media (max-width:760px){.sticker{width:84px;top:0}.sticker span{display:none}.sticker b{font-size:1.5rem}}
+@media (prefers-reduced-motion:reduce){.tape-in,.sticker{animation:none}}
+</style>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="#top">Light I.</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Work</a><a href="#process">Process</a><a href="#case">Case study</a><a href="#proof">Reviews</a><a href="#about">About</a>
+    </nav>
+    <div class="tc" aria-hidden="true"><span class="rec"></span><span class="lbl">TC</span><span id="tc">00:00:00</span></div>
+    <button class="iconbtn" id="theme" type="button" aria-label="Switch light and dark theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+    </button>
+    <a class="btn primary sm" href="https://www.upwork.com/freelancers/~014e67d814b6f642cd" target="_blank" rel="noopener">Contact me</a>
+  </div>
+  <div class="prog"><i id="prog"></i></div>
+</header>
+
+<main class="wrap">
+  <section class="hero" id="top">
+    <div class="sticker" aria-hidden="true"><b>5.0</b><span>on every rated job</span></div>
+    <p class="eyebrow mono">AI video creator · Video editor · Ibadan, Nigeria</p>
+    <h1><span class="w" style="--i:0">AI</span> <span class="w" style="--i:1">video</span> <span class="w" style="--i:2">that</span> <span class="w" style="--i:3">doesn't</span> <span class="w" style="--i:4">look</span> <span class="w" style="--i:5">like</span> <span class="w rel" style="--i:6">AI.<svg viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 30 3, 52 12, 84 7 S 142 4, 170 9 S 192 6, 197 5"/></svg></span></h1>
+    <p class="lede">I'm Light. I make AI avatar videos, UGC ads and short-form edits for brands and agencies. The AI tools generate the footage, then <b>I edit it by hand</b> in Premiere Pro, After Effects, DaVinci Resolve and CapCut until it looks right.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://www.upwork.com/freelancers/~014e67d814b6f642cd" target="_blank" rel="noopener">Contact me on Upwork <span class="arr">→</span></a>
+      <button class="btn" type="button" data-openchat>Chat on WhatsApp</button>
+      <a class="btn" href="https://youtu.be/1SJynx8OH5U" target="_blank" rel="noopener">Watch the intro</a>
+    </div>
+    <ul class="facts">
+      <li>30+ hours a week</li>
+      <li>Usually replies within 4 hours</li>
+      <li>Open to contract-to-hire</li>
+    </ul>
+
+    <div class="editor" id="editor">
+      <div class="ed-head mono"><span>A 30 second ad, taken apart</span><span>Drag the timeline. Example only, not client work.</span></div>
+      <div class="ed-body">
+        <div class="phone"><div class="screen" id="screen" data-scene="hook">
+          <div class="sc sc-hook"><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+          <div class="sc sc-avatar"><div class="body"></div><div class="head"></div><div class="mouth"></div></div>
+          <div class="sc sc-broll"><div class="blk a"></div><div class="blk b"></div></div>
+          <div class="sc sc-proof"><div class="bars"><i></i><i></i><i></i><i></i></div></div>
+          <div class="sc sc-cta"><div class="pill">Get started</div></div>
+          <div class="tag" id="tag">Premiere Pro</div>
+          <div class="cap" id="cap"></div>
+        </div></div>
+        <div class="timeline">
+          <div class="lanes" id="lanes" tabindex="0" role="slider" aria-label="Scrub the example ad timeline" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0">
+            <div class="ruler" id="ruler"></div>
+            <div class="row"><span class="tn">V1</span><div class="lane" id="l-v"></div></div>
+            <div class="row"><span class="tn">A1</span><div class="lane" id="l-a1"></div></div>
+            <div class="row"><span class="tn">A2</span><div class="lane" id="l-a2"></div></div>
+            <div class="row"><span class="tn">T1</span><div class="lane" id="l-t"></div></div>
+            <div class="ph" id="ph"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ed-foot">
+        <button class="btn" id="play" type="button">Pause</button>
+        <span class="now"><b id="now">00:00</b> / 00:30 · <span id="seginfo">Hook</span></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="tape" aria-hidden="true"><div class="tape-in">
+    <div class="set"><span>HeyGen</span><span>Synthesia</span><span>ElevenLabs</span><span>Veo 3</span><span>Kling</span><span>Higgsfield</span><span>Sora</span><span>Runway</span><span>Premiere Pro</span><span>After Effects</span><span>DaVinci Resolve</span><span>CapCut</span></div>
+    <div class="set"><span>HeyGen</span><span>Synthesia</span><span>ElevenLabs</span><span>Veo 3</span><span>Kling</span><span>Higgsfield</span><span>Sora</span><span>Runway</span><span>Premiere Pro</span><span>After Effects</span><span>DaVinci Resolve</span><span>CapCut</span></div>
+  </div></div>
+
+  <section class="s t1" id="work" data-ghost="WORK">
+    <div class="sec-label mono" data-rev><span>V1 · What I make</span><span class="r">IN <span class="sec-tc"></span></span></div>
+    <h2 data-rev>What I make</h2>
+    <p class="sub" data-rev>Click a row to see more.</p>
+    <ul class="svc" id="svc" data-rev>
+      <li>
+        <button class="svc-btn" type="button" aria-expanded="true" aria-controls="p1">
+          <span class="ratio" style="--ar:16/9"></span><span class="svc-name">AI avatar and spokesperson videos</span><span class="svc-tools mono">HeyGen · Synthesia</span><span class="chev"></span>
+        </button>
+        <div class="svc-panel" id="p1"><div>
+          <p>A realistic presenter, lip-sync that matches the voice, and a cloned ElevenLabs voice if you want one. Good for SaaS demos, courses and agency work when you don't want to film anyone.</p>
+          <div class="chips"><span class="chip">HeyGen</span><span class="chip">Synthesia</span><span class="chip">ElevenLabs</span><span class="chip">Voice cloning</span></div>
+        </div></div>
+      </li>
+      <li>
+        <button class="svc-btn" type="button" aria-expanded="false" aria-controls="p2">
+          <span class="ratio" style="--ar:9/16"></span><span class="svc-name">AI UGC video ads</span><span class="svc-tools mono">Meta · TikTok · Reels</span><span class="chev"></span>
+        </button>
+        <div class="svc-panel" id="p2"><div>
+          <p>15 to 60 second ads for Meta, TikTok and Reels, built around a strong hook. Easy to make in batches if you need a lot of variations.</p>
+          <div class="chips"><span class="chip">15–60s</span><span class="chip">Hook-first edits</span><span class="chip">Batch pipelines</span></div>
+        </div></div>
+      </li>
+      <li>
+        <button class="svc-btn" type="button" aria-expanded="false" aria-controls="p3">
+          <span class="ratio" style="--ar:9/16"></span><span class="svc-name">Short-form vertical editing</span><span class="svc-tools mono">TikTok · Reels · Shorts</span><span class="chev"></span>
+        </button>
+        <div class="svc-panel" id="p3"><div>
+          <p>Vertical edits with tight cuts, moving text, captions and sound. Every video in a batch gets the same look.</p>
+          <div class="chips"><span class="chip">Captions</span><span class="chip">Kinetic text</span><span class="chip">Sound design</span><span class="chip">CapCut</span></div>
+        </div></div>
+      </li>
+      <li>
+        <button class="svc-btn" type="button" aria-expanded="false" aria-controls="p4">
+          <span class="ratio" style="--ar:2.39/1"></span><span class="svc-name">Cinematic AI video</span><span class="svc-tools mono">Veo 3 · Kling · Sora</span><span class="chev"></span>
+        </button>
+        <div class="svc-panel" id="p4"><div>
+          <p>Shots from Veo 3, Kling, Sora and other tools, graded and cleaned up with sound and VFX so they look like one film. Trailers and animation too.</p>
+          <div class="chips"><span class="chip">Veo 3</span><span class="chip">Kling</span><span class="chip">Higgsfield</span><span class="chip">Sora</span><span class="chip">Runway</span><span class="chip">DaVinci Resolve</span></div>
+        </div></div>
+      </li>
+      <li>
+        <button class="svc-btn" type="button" aria-expanded="false" aria-controls="p5">
+          <span class="ratio" style="--ar:16/9"></span><span class="svc-name">Training and e-learning video</span><span class="svc-tools mono">Corporate · Education</span><span class="chev"></span>
+        </button>
+        <div class="svc-panel" id="p5"><div>
+          <p>Training and course videos that are clear and quick to produce, so your course doesn't get stuck waiting on video.</p>
+          <div class="chips"><span class="chip">AI presenters</span><span class="chip">Lower thirds</span><span class="chip">Subtitles</span></div>
+        </div></div>
+      </li>
+      <li>
+        <button class="svc-btn" type="button" aria-expanded="false" aria-controls="p6">
+          <span class="ratio" style="--ar:1/1"></span><span class="svc-name">Explainers, VSLs and product demos</span><span class="svc-tools mono">Direct response</span><span class="chev"></span>
+        </button>
+        <div class="svc-panel" id="p6"><div>
+          <p>Explainers, VSLs, testimonials, demos and product videos. Motion graphics, your logo and B-roll go in where they help.</p>
+          <div class="chips"><span class="chip">VSL</span><span class="chip">Motion graphics</span><span class="chip">After Effects</span><span class="chip">Premiere Pro</span></div>
+        </div></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="s t2" id="process" data-ghost="PROCESS">
+    <div class="sec-label mono" data-rev><span>Process · Script to delivery</span><span class="r">IN <span class="sec-tc"></span></span></div>
+    <h2 data-rev>How a video gets made</h2>
+    <p class="sub" data-rev>The AI generates. I edit.</p>
+    <div class="steps" id="steps">
+      <div class="step" data-rev><span class="k mono">Step 1</span><h3>Script</h3><p>We agree on the hook, the length and where it will run.</p><div class="chips"><span class="chip">Hook</span><span class="chip">Structure</span><span class="chip">Platform</span></div></div>
+      <div class="step" data-rev style="--d:90ms"><span class="k mono">Step 2</span><h3>Generate</h3><p>I make avatars, voices and shots with AI tools and keep only what looks natural.</p><div class="chips"><span class="chip">HeyGen</span><span class="chip">Synthesia</span><span class="chip">ElevenLabs</span><span class="chip">Veo 3</span><span class="chip">Kling</span><span class="chip">Higgsfield</span><span class="chip">Sora</span><span class="chip">Runway</span></div></div>
+      <div class="step" data-rev style="--d:180ms"><span class="k mono">Step 3</span><h3>Edit</h3><p>Cuts, captions, color, sound and motion graphics, all by hand.</p><div class="chips"><span class="chip">Premiere Pro</span><span class="chip">After Effects</span><span class="chip">DaVinci Resolve</span><span class="chip">CapCut</span></div></div>
+      <div class="step" data-rev style="--d:270ms"><span class="k mono">Step 4</span><h3>Deliver</h3><p>Files ready to post, in the right size, with the same branding on every video.</p><div class="chips"><span class="chip">9:16</span><span class="chip">16:9</span><span class="chip">1:1</span></div></div>
+    </div>
+  </section>
+
+  <section class="s t3" id="case" data-ghost="CASE">
+    <div class="sec-label mono" data-rev><span>Case study · 17 clips</span><span class="r">IN <span class="sec-tc"></span></span></div>
+    <div class="case">
+      <div data-rev>
+        <h2>17 clips, one batch</h2>
+        <p class="sub">A client sent me 17 short clips, from 12 seconds to 3 minutes, and wanted each one reworked for Instagram, Reels and YouTube. Same action in every clip, but not the same look as the original. Try the edits on this sample frame.</p>
+        <div class="toggles" id="fx" role="group" aria-label="Edits to apply">
+          <button class="tg" type="button" aria-pressed="false" data-fx="reframe">Reframe to 9:16</button>
+          <button class="tg" type="button" aria-pressed="false" data-fx="zoom">Add zooms</button>
+          <button class="tg" type="button" aria-pressed="false" data-fx="grade">Color grade</button>
+          <button class="tg" type="button" aria-pressed="false" data-fx="text">Replace text overlay</button>
+          <button class="tg" type="button" aria-pressed="false" data-fx="bg">Swap background</button>
+          <button class="tg" type="button" aria-pressed="false" data-fx="blur">Blur unwanted element</button>
+        </div>
+        <div class="count"><span><b id="fxn">0</b> of 6 edits applied</span><button type="button" id="fxall">Apply all</button></div>
+        <p style="margin-top:22px">I sent one sample first to check the direction, then did the rest and delivered everything as vertical files, ready to post. I kept the edits simple so the clips still look natural.</p>
+      </div>
+      <div class="stage" data-rev style="--d:120ms">
+        <div class="frame" id="frame">
+          <div class="inner">
+            <div class="layer"><div class="fx-bg"></div><div class="fx-bg2"></div><div class="dot"></div></div>
+            <div class="fx-sub" id="sub">ORIGINAL TEXT OVERLAY</div>
+            <div class="fx-logo">LOGO</div>
+          </div>
+        </div>
+        <div class="stage-label mono"><span id="stl">Source clip · 16:9</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s t4" id="proof" data-ghost="REVIEWS">
+    <div class="sec-label mono" data-rev><span>Reviews · From Upwork clients</span><span class="r">IN <span class="sec-tc"></span></span></div>
+    <h2 data-rev>What clients wrote</h2>
+    <p class="sub" data-rev>Straight from my Upwork reviews.</p>
+    <div class="stats" data-rev>
+      <div class="stat"><b data-to="7" data-dec="0">7</b><span>jobs finished on Upwork</span></div>
+      <div class="stat"><b data-to="5" data-dec="1">5.0</b><span>stars on every rated job</span></div>
+      <div class="stat"><b data-to="30" data-dec="0" data-suf="+">30+</b><span>hours a week</span></div>
+      <div class="stat"><b>0–4h</b><span>typical reply time</span></div>
+    </div>
+    <div class="quotes" data-rev>
+      <div class="qpick" role="tablist" aria-label="Client reviews" id="qpick"></div>
+      <div class="qbody" aria-live="polite">
+        <p class="qtext" id="qtext"></p>
+        <div class="qmeta mono" id="qmeta"></div>
+        <div class="qbar" id="qbar"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s t5" id="about" data-ghost="ABOUT">
+    <div class="sec-label mono" data-rev><span>About · Background</span><span class="r">IN <span class="sec-tc"></span></span></div>
+    <div class="about">
+      <div class="story" data-rev>
+        <p>A few years ago I watched a corporate training project fail. The content was fine. The video was slow and confusing, and there was no way to make more of it.</p>
+        <p>So now I handle the whole job myself: script, generation, edit and delivery. I work with DTC brands, SaaS companies, educators and agencies who need a lot of video that doesn't feel robotic.</p>
+        <p>I also worked as an AI creative producer for a remote digital marketing agency, using these tools on real client work and managing my own deadlines.</p>
+      </div>
+      <div class="cols" data-rev style="--d:120ms">
+        <h3>Experience</h3>
+        <ul class="list">
+          <li><span>AI avatar and explainer video producer</span><em>2026 – now</em></li>
+          <li><span>Motion graphics and cinematic AI video editor</span><em>2026 – now</em></li>
+          <li><span>Short-form video editor</span><em>2026 – now</em></li>
+          <li><span>AI-native creative producer, digital marketing agency</span><em>Remote</em></li>
+        </ul>
+        <h3>Education</h3>
+        <ul class="list">
+          <li><span>BA Digital Media, Video Production and AI, Arizona State University (ASU Online)</span><em>2021 – 2024</em></li>
+          <li><span>Certification in Video Editing, Skillshare</span><em>2024 – 2025</em></li>
+        </ul>
+        <h3>Certifications</h3>
+        <ul class="list">
+          <li><span>HeyGen and Synthesia AI Video Editing and AI Spokesperson</span><em>HeyGen Academy, Synthesia Academy, Udemy</em></li>
+          <li><span>AI Video Creator and AI Video Production Specialist</span><em>Coursera, Udemy</em></li>
+          <li><span>AI for Everyone</span><em>Coursera, Udemy</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="s t6" id="contact" data-ghost="CONTACT">
+    <div class="sec-label mono" data-rev><span>Contact · Brief me</span><span class="r">IN <span class="sec-tc"></span></span></div>
+    <h2 data-rev>Got a video in mind?</h2>
+    <p class="sub" data-rev>Fill this in and I'll write the message for you. Copy it and send it on Upwork or WhatsApp.</p>
+    <div class="brief" data-rev>
+      <form id="form" onsubmit="return false">
+        <fieldset class="field"><legend>Video type</legend>
+          <div class="toggles" id="b-type">
+            <button class="tg" type="button" aria-pressed="true">AI avatar video</button>
+            <button class="tg" type="button" aria-pressed="false">AI UGC ad</button>
+            <button class="tg" type="button" aria-pressed="false">Short-form edit</button>
+            <button class="tg" type="button" aria-pressed="false">Cinematic AI video</button>
+            <button class="tg" type="button" aria-pressed="false">Training video</button>
+            <button class="tg" type="button" aria-pressed="false">Explainer or VSL</button>
+          </div>
+        </fieldset>
+        <fieldset class="field"><legend>Where it will run</legend>
+          <div class="toggles" id="b-plat">
+            <button class="tg" type="button" aria-pressed="false">Meta ads</button>
+            <button class="tg" type="button" aria-pressed="true">TikTok</button>
+            <button class="tg" type="button" aria-pressed="false">Instagram Reels</button>
+            <button class="tg" type="button" aria-pressed="false">YouTube</button>
+            <button class="tg" type="button" aria-pressed="false">Website or course</button>
+          </div>
+        </fieldset>
+        <div class="field"><label class="l" for="len">Length</label>
+          <input type="range" id="len" min="15" max="180" step="5" value="30">
+          <div class="len"><span>15s</span><b id="lenv">30s</b><span>3 min</span></div>
+        </div>
+        <div class="field"><label class="l" for="vol">How many</label>
+          <select id="vol"><option>one video</option><option>a batch of 5 to 10 videos</option><option>an ongoing weekly batch</option></select>
+        </div>
+        <div class="field"><label class="l" for="notes">Anything else</label>
+          <textarea id="notes" placeholder="Product, audience, a reference you like, a deadline"></textarea>
+        </div>
+      </form>
+      <div class="out">
+        <span class="mono">Your message</span>
+        <div class="msg" id="msg"></div>
+        <div class="row2">
+          <button class="btn primary" type="button" id="copy">Copy message</button>
+          <a class="btn" id="upwork" href="https://www.upwork.com/freelancers/~014e67d814b6f642cd" target="_blank" rel="noopener">Contact me on Upwork</a>
+          <button class="btn wa" type="button" data-openchat>Chat on WhatsApp</button>
+          <a class="btn" href="https://youtu.be/1SJynx8OH5U" target="_blank" rel="noopener">Watch the intro</a>
+        </div>
+        <p class="hint">WhatsApp: +234 901 074 8820. Based in Ibadan, Nigeria. Usually replies within 4 hours.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="wrap"><footer><span>© 2026 Light I. · AI video creator and video editor</span><span><a href="https://www.upwork.com/freelancers/~014e67d814b6f642cd" target="_blank" rel="noopener">Upwork</a> · <a href="https://wa.me/2349010748820" target="_blank" rel="noopener">WhatsApp +234 901 074 8820</a></span></footer></div>
+
+<button class="chat-fab" id="chat-fab" type="button" aria-expanded="false" aria-controls="chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 20.5l1.7-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+  <span>Chat on WhatsApp</span>
+</button>
+<div class="chat" id="chat" role="dialog" aria-label="Quick chat with Light" aria-hidden="true">
+  <div class="chat-h"><span class="av">L</span><div><strong>Light I.</strong><small>Quick chat, then WhatsApp</small></div><button type="button" id="chat-x" aria-label="Close chat">×</button></div>
+  <div class="chat-log" id="chat-log" aria-live="polite"></div>
+  <div class="chat-r" id="chat-r"></div>
+  <form class="chat-f" id="chat-f" onsubmit="return false">
+    <input id="chat-in" type="text" placeholder="Type a reply" autocomplete="off" aria-label="Your reply">
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* Paste the link to your Upwork profile between the quotes to show the "Open my Upwork profile" button. */
+  var UPWORK_URL = "https://www.upwork.com/freelancers/~014e67d814b6f642cd";
+
+  var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var root = document.documentElement;
+  function $(s,c){return (c||document).querySelector(s)}
+  function $$(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))}
+  function pad(n,l){n=String(n);while(n.length<(l||2))n="0"+n;return n}
+  function clamp(v,a,b){return Math.min(b,Math.max(a,v))}
+
+  /* theme */
+  try{var saved=localStorage.getItem("li-theme"); if(saved==="light"||saved==="dark") root.setAttribute("data-theme",saved);}catch(e){}
+  $("#theme").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme");
+    if(!cur) cur=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";
+    var next=cur==="dark"?"light":"dark";
+    root.setAttribute("data-theme",next);
+    try{localStorage.setItem("li-theme",next)}catch(e){}
+  });
+
+  /* hero spotlight */
+  var hero=$(".hero"), mxy=null;
+  if(!reduced && window.matchMedia && matchMedia("(pointer: fine)").matches){
+    hero.addEventListener("pointermove",function(e){
+      if(mxy) return;
+      mxy=requestAnimationFrame(function(){
+        var r=hero.getBoundingClientRect();
+        hero.style.setProperty("--mx",(e.clientX-r.left)+"px");
+        hero.style.setProperty("--my",(e.clientY-r.top)+"px");
+        mxy=null;
+      });
+    });
+  }
+
+  /* scroll: timecode, progress, process line, section in-points */
+  var tcEl=$("#tc"), progEl=$("#prog"), steps=$("#steps"), stepEls=$$(".step"), ticking=false;
+  var RUNTIME=120, FPS=24;
+  function tcString(p){
+    var f=Math.round(p*RUNTIME*FPS);
+    var ff=f%FPS, s=Math.floor(f/FPS), ss=s%60, mm=Math.floor(s/60);
+    return pad(mm)+":"+pad(ss)+":"+pad(ff);
+  }
+  function onScroll(){
+    var max=document.documentElement.scrollHeight-innerHeight;
+    var p=max>0?clamp(scrollY/max,0,1):0;
+    tcEl.textContent=tcString(p);
+    progEl.style.transform="scaleX("+p+")";
+    var r=steps.getBoundingClientRect();
+    var lp=clamp((innerHeight*0.7-r.top)/r.height,0,1);
+    steps.style.setProperty("--lp",lp.toFixed(3));
+    stepEls.forEach(function(el,i){el.classList.toggle("on",lp>=(i/(stepEls.length-0.4)))});
+    ticking=false;
+  }
+  addEventListener("scroll",function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});
+  function setInPoints(){
+    var max=document.documentElement.scrollHeight-innerHeight;
+    $$("section.s").forEach(function(sec){
+      var el=$(".sec-tc",sec); if(!el) return;
+      var top=sec.getBoundingClientRect().top+scrollY;
+      el.textContent=tcString(max>0?clamp(top/max,0,1):0);
+    });
+  }
+  addEventListener("resize",function(){setInPoints();onScroll()});
+  addEventListener("load",function(){setInPoints();onScroll()});
+  setInPoints(); onScroll();
+
+  /* reveal on scroll, only for things below the first screen */
+  var rev=$$("[data-rev]");
+  if(!reduced && "IntersectionObserver" in window){
+    rev.forEach(function(el){ if(el.getBoundingClientRect().top>innerHeight*0.92) el.classList.add("pre"); });
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.remove("pre"); io.unobserve(e.target);} });
+    },{threshold:0.12,rootMargin:"0px 0px -6% 0px"});
+    rev.forEach(function(el){ if(el.classList.contains("pre")) io.observe(el); });
+  }
+
+  /* ---------- editor ---------- */
+  var D=30, SPEED=2.2;
+  var SEG=[
+    {s:0,e:3,name:"Hook",scene:"hook",tool:"Premiere Pro",words:"Stop scrolling. This one is for you."},
+    {s:3,e:12,name:"AI avatar",scene:"avatar",tool:"HeyGen + ElevenLabs",words:"Meet your new spokesperson, with lip-sync and voice included."},
+    {s:12,e:21,name:"B-roll",scene:"broll",tool:"Veo 3 + Kling",words:"Product shots are generated, then cut to the beat."},
+    {s:21,e:27,name:"Proof",scene:"proof",tool:"After Effects",words:"Kinetic text and proof on screen keep people watching."},
+    {s:27,e:30,name:"Call to action",scene:"cta",tool:"CapCut",words:"Tap the link and start today."}
+  ];
+  var lanes=$("#lanes"), ruler=$("#ruler"), screen=$("#screen"), cap=$("#cap"), tag=$("#tag"), nowEl=$("#now"), segInfo=$("#seginfo"), playBtn=$("#play");
+  var t=0, playing=!reduced, dragging=false, vis=true, curSeg=-1, last=performance.now(), wordEls=[];
+
+  for(var i=0;i<=D;i++){
+    var tick=document.createElement("i"); if(i%5===0) tick.className="m"; tick.style.left=(i/D*100)+"%"; ruler.appendChild(tick);
+    if(i%5===0){var b=document.createElement("b"); b.textContent=i+"s"; b.style.left=(i/D*100)+"%"; ruler.appendChild(b);}
+  }
+  function clip(lane,cls,s,e,label,wave,amp){
+    var c=document.createElement("div"); c.className="clip "+cls; c.style.setProperty("--s",s); c.style.setProperty("--e",e);
+    if(wave){
+      var w=document.createElement("div"); w.className="wf";
+      var seed=wave;
+      for(var k=0;k<110;k++){ seed=(seed*9301+49297)%233280; var h=(0.25+0.75*(seed/233280))*amp; var bar=document.createElement("i"); bar.style.height=(h*100)+"%"; w.appendChild(bar);}
+      c.appendChild(w);
+    }
+    var sp=document.createElement("span"); sp.textContent=label||""; c.appendChild(sp);
+    lane.appendChild(c); return c;
+  }
+  var vClips=[], tClips=[];
+  SEG.forEach(function(g){
+    vClips.push(clip($("#l-v"),"v",g.s,g.e,g.name));
+    tClips.push(clip($("#l-t"),"t",g.s+0.25,g.e-0.1,"Captions"));
+  });
+  clip($("#l-a1"),"a",0.4,26.8,"ElevenLabs voice",7,0.9);
+  clip($("#l-a1"),"a",27.1,30,"VO",19,0.9);
+  clip($("#l-a2"),"f",0,30,"Music and sound design",3,0.55);
+
+  function buildCaption(words){
+    cap.textContent=""; wordEls=[];
+    words.split(" ").forEach(function(w,i){
+      var s=document.createElement("span"); s.textContent=w; cap.appendChild(s); cap.appendChild(document.createTextNode(" ")); wordEls.push(s);
+    });
+  }
+  function fmt(x){var s=Math.floor(x), f=Math.floor((x-s)*FPS); return pad(s)+":"+pad(f)}
+  function render(){
+    var p=t/D; lanes.style.setProperty("--p",p.toFixed(4));
+    nowEl.textContent=fmt(t);
+    lanes.setAttribute("aria-valuenow",String(Math.round(t)));
+    var idx=0; for(var i=0;i<SEG.length;i++){ if(t>=SEG[i].s && t<SEG[i].e){idx=i;break;} }
+    if(idx!==curSeg){
+      curSeg=idx; var g=SEG[idx];
+      screen.setAttribute("data-scene",g.scene); tag.textContent=g.tool;
+      segInfo.textContent=g.name+" · "+g.tool;
+      buildCaption(g.words);
+      vClips.forEach(function(c,k){c.classList.toggle("live",k===idx)});
+      tClips.forEach(function(c,k){c.classList.toggle("live",k===idx)});
+    }
+    var g2=SEG[curSeg], wi=Math.floor((t-g2.s)/(g2.e-g2.s)*wordEls.length);
+    for(var j=0;j<wordEls.length;j++){ wordEls[j].classList.toggle("on",j===wi); }
+  }
+  function loop(now){
+    var dt=Math.min(0.1,(now-last)/1000); last=now;
+    if(playing && !dragging && vis){ t=(t+dt*SPEED)%D; render(); }
+    requestAnimationFrame(loop);
+  }
+  if(reduced){ t=5; }
+  render(); requestAnimationFrame(loop);
+  function setPlaying(v){ playing=v; playBtn.textContent=v?"Pause":"Play"; }
+  setPlaying(playing);
+  playBtn.addEventListener("click",function(){setPlaying(!playing)});
+  if("IntersectionObserver" in window){ new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe($("#editor")); }
+
+  function scrubTo(x){
+    var r=ruler.getBoundingClientRect();
+    t=clamp((x-r.left)/r.width,0,0.9999)*D; render();
+  }
+  lanes.addEventListener("pointerdown",function(e){
+    dragging=true; try{lanes.setPointerCapture(e.pointerId)}catch(_){}
+    scrubTo(e.clientX);
+  });
+  lanes.addEventListener("pointermove",function(e){ if(dragging) scrubTo(e.clientX); });
+  function endDrag(){dragging=false}
+  lanes.addEventListener("pointerup",endDrag); lanes.addEventListener("pointercancel",endDrag);
+  lanes.addEventListener("keydown",function(e){
+    var step=e.shiftKey?5:1;
+    if(e.key==="ArrowRight"){t=clamp(t+step,0,D-0.01);render();e.preventDefault();}
+    else if(e.key==="ArrowLeft"){t=clamp(t-step,0,D-0.01);render();e.preventDefault();}
+    else if(e.key===" "){setPlaying(!playing);e.preventDefault();}
+  });
+
+  /* ---------- services accordion ---------- */
+  var svcBtns=$$(".svc-btn");
+  svcBtns.forEach(function(b){
+    b.addEventListener("click",function(){
+      var open=b.getAttribute("aria-expanded")==="true";
+      svcBtns.forEach(function(o){o.setAttribute("aria-expanded","false")});
+      b.setAttribute("aria-expanded",open?"false":"true");
+    });
+  });
+
+  /* ---------- case study toggles ---------- */
+  var frame=$("#frame"), subEl=$("#sub"), stl=$("#stl"), fxn=$("#fxn"), fxBtns=$$("#fx .tg");
+  function fxUpdate(){
+    var n=0;
+    fxBtns.forEach(function(b){
+      var on=b.getAttribute("aria-pressed")==="true"; if(on) n++;
+      frame.classList.toggle(b.getAttribute("data-fx"),on);
+    });
+    fxn.textContent=n;
+    var rf=frame.classList.contains("reframe");
+    subEl.textContent=frame.classList.contains("text")?"New caption, rewritten and restyled":"ORIGINAL TEXT OVERLAY";
+    stl.textContent=(n===0?"Source clip":"Reworked clip")+" · "+(rf?"9:16":"16:9");
+    $("#fxall").textContent=n===fxBtns.length?"Reset":"Apply all";
+  }
+  fxBtns.forEach(function(b){
+    b.addEventListener("click",function(){
+      b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true"); fxUpdate();
+    });
+  });
+  $("#fxall").addEventListener("click",function(){
+    var all=fxBtns.every(function(b){return b.getAttribute("aria-pressed")==="true"});
+    fxBtns.forEach(function(b){b.setAttribute("aria-pressed",all?"false":"true")}); fxUpdate();
+  });
+  fxUpdate();
+
+  /* ---------- count-up stats ---------- */
+  $$(".stat b[data-to]").forEach(function(el){
+    var to=parseFloat(el.getAttribute("data-to")), dec=parseInt(el.getAttribute("data-dec")||"0",10), suf=el.getAttribute("data-suf")||"";
+    if(reduced||!("IntersectionObserver" in window)) return;
+    if(el.getBoundingClientRect().top<innerHeight) return;
+    el.textContent=(0).toFixed(dec)+suf;
+    var o=new IntersectionObserver(function(es){
+      if(!es[0].isIntersecting) return; o.disconnect();
+      var st=performance.now(), dur=1300;
+      (function tick(n){
+        var k=clamp((n-st)/dur,0,1), e=1-Math.pow(1-k,3);
+        el.textContent=(to*e).toFixed(dec)+suf;
+        if(k<1) requestAnimationFrame(tick);
+      })(st);
+    },{threshold:0.6});
+    o.observe(el);
+  });
+
+  /* ---------- testimonials ---------- */
+  var Q=[
+    {n:"Tersur I.",m:"Mar 2026 · Verified client",t:"Working with Light has been a fantastic experience. He quickly understands project goals and brings strong creative strategy, content creation, and video production skills to the table. He turns ideas into polished, engaging results, paying attention to every detail in scriptwriting, pacing, and video editing. Communication is smooth, deadlines are met, and he’s always open to feedback, making collaboration easy and enjoyable. Light combines professionalism with genuine creativity, delivering results that exceed expectations. I highly recommend him for any project needing skill, insight, and dedication."},
+    {n:"Andrew E.",m:"Jan 2026 · Verified client",t:"I had an excellent experience working with Light on an AI video project. From the beginning, he was professional, responsive, and very clear in his communication. He took time to understand the project goals and translated them into a high-quality AI video that matched exactly what I was looking for. Delivery was timely, and the overall output was creative, polished, and well-structured. Light was also very receptive to feedback and handled revisions smoothly without any issues. His attention to detail and commitment to client satisfaction really stood out. I highly recommend Light to anyone looking for a reliable and skilled AI video freelancer, and I would gladly work with him again in the future."},
+    {n:"Upwork client",m:"HeyGen AI video ad · Jul 2026 · 5.0",t:"Great experience working with Light on a HeyGen AI video ad. Communication was smooth, turnaround was fast, and the final video looked polished and on-brand."},
+    {n:"Upwork client",m:"AI video ads · Nov 2026 · 5.0",t:"Light was professional, creative, and delivered exactly what I needed. Communication was smooth, and the overall experience was great."},
+    {n:"Upwork client",m:"Video editing · Aug 2026 · 5.0",t:"Excellent!"}
+  ];
+  var qpick=$("#qpick"), qtext=$("#qtext"), qmeta=$("#qmeta"), qbar=$("#qbar"), qi=0, qpaused=false, qTimer=null, QMS=9000;
+  Q.forEach(function(q,i){
+    var b=document.createElement("button"); b.type="button"; b.className="qb"; b.setAttribute("role","tab");
+    var s=document.createElement("strong"); s.textContent=q.n; var sm=document.createElement("small"); sm.textContent=q.m;
+    b.appendChild(s); b.appendChild(sm);
+    b.addEventListener("click",function(){showQ(i,true)});
+    qpick.appendChild(b);
+  });
+  function showQ(i,manual){
+    qi=i;
+    var bs=$$(".qb",qpick); bs.forEach(function(b,k){b.setAttribute("aria-selected",k===i?"true":"false")});
+    qtext.classList.add("out");
+    setTimeout(function(){
+      qtext.textContent=Q[i].t; qtext.classList.toggle("long",Q[i].t.length>260); qmeta.textContent=Q[i].n+" · "+Q[i].m;
+      qtext.classList.remove("out");
+    },reduced?0:260);
+    qbar.style.transition="none"; qbar.style.transform="scaleX(0)";
+    if(!reduced && !manual){ void qbar.offsetWidth; qbar.style.transition="transform "+QMS+"ms linear"; qbar.style.transform="scaleX(1)"; }
+    clearTimeout(qTimer);
+    if(!reduced && !manual){ qTimer=setTimeout(function(){ if(!qpaused && !document.hidden) showQ((qi+1)%Q.length,false); else showQ(qi,false); },QMS); }
+  }
+  var qSec=$(".quotes");
+  qSec.addEventListener("pointerenter",function(){qpaused=true});
+  qSec.addEventListener("pointerleave",function(){qpaused=false});
+  showQ(0,reduced);
+
+  /* ---------- brief builder ---------- */
+  var bType=$("#b-type"), bPlat=$("#b-plat"), len=$("#len"), lenv=$("#lenv"), vol=$("#vol"), notes=$("#notes"), msg=$("#msg");
+  function sel(box){return $$(".tg",box).filter(function(b){return b.getAttribute("aria-pressed")==="true"}).map(function(b){return b.textContent.toLowerCase()})}
+  function listJoin(a){ if(a.length<=1) return a.join(""); return a.slice(0,-1).join(", ")+" and "+a[a.length-1]; }
+  function lenText(v){v=parseInt(v,10); if(v<60) return v+" seconds"; var m=Math.floor(v/60), s=v%60; return m+(m===1?" minute":" minutes")+(s?" "+s+" seconds":"");}
+  function compose(){
+    var types=sel(bType), plats=sel(bPlat);
+    lenv.textContent=len.value>=60?(Math.floor(len.value/60)+"m"+(len.value%60?" "+(len.value%60)+"s":"")):len.value+"s";
+    var out="Hi Light,\n\nI need "+(types.length?listJoin(types):"a video")+" for "+(plats.length?listJoin(plats):"my brand")+". It should run about "+lenText(len.value)+", and I need "+vol.value+".";
+    var n=notes.value.trim(); if(n) out+="\n\n"+n;
+    out+="\n\nWhat do you need from me to get started?";
+    msg.textContent=out;
+  }
+  [bType,bPlat].forEach(function(box){
+    $$(".tg",box).forEach(function(b){b.addEventListener("click",function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");compose()})});
+  });
+  [len,vol,notes].forEach(function(el){el.addEventListener("input",compose)});
+  compose();
+  var copyBtn=$("#copy");
+  copyBtn.addEventListener("click",function(){
+    var text=msg.textContent;
+    function done(ok){ copyBtn.textContent=ok?"Copied":"Select and copy the text above"; setTimeout(function(){copyBtn.textContent="Copy message"},1800); }
+    function fallback(){
+      try{var r=document.createRange(); r.selectNodeContents(msg); var s=getSelection(); s.removeAllRanges(); s.addRange(r); done(false);}catch(e){done(false)}
+    }
+    try{ navigator.clipboard.writeText(text).then(function(){done(true)},fallback); }catch(e){ fallback(); }
+  });
+  var up=$("#upwork"); if(UPWORK_URL){ up.href=UPWORK_URL; up.hidden=false; }
+})();
+</script>
+<script>
+(function(){
+  "use strict";
+  var NUM="2349010748820", DISP="+234 901 074 8820";
+  var reduced=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function $(s){return document.querySelector(s)}
+
+  /* header accent follows the section in view */
+  var top$=$(".top"), order=["top","work","process","case","proof","about","contact"], toneNow=-1, tk=false;
+  function tone(){
+    var idx=0;
+    for(var i=0;i<order.length;i++){ var el=document.getElementById(order[i]); if(el && el.getBoundingClientRect().top<=120) idx=i; }
+    if(idx!==toneNow){ toneNow=idx; top$.style.setProperty("--accent","var(--tone-"+idx+")"); }
+    tk=false;
+  }
+  addEventListener("scroll",function(){ if(!tk){tk=true;requestAnimationFrame(tone)} },{passive:true});
+  tone();
+
+  /* chat */
+  var fab=$("#chat-fab"), panel=$("#chat"), log=$("#chat-log"), rep=$("#chat-r"), form=$("#chat-f"), input=$("#chat-in");
+  var STEPS=[
+    {q:"Hi! What kind of video do you need?",k:"type",o:["AI avatar video","AI UGC ad","Short-form edit","Cinematic AI video","Training video","Explainer or VSL"]},
+    {q:"Where will it run?",k:"plat",o:["Meta ads","TikTok","Instagram Reels","YouTube","Website or course"]},
+    {q:"How many videos?",k:"vol",o:["One video","A batch of 5 to 10","Ongoing weekly"]},
+    {q:"Anything else to add? Type it below or skip.",k:"notes",o:["Skip"]}
+  ];
+  var step=0, ans={}, started=false, busy=false;
+
+  function scrollLog(){ log.scrollTop=log.scrollHeight; }
+  function add(text,me){
+    var d=document.createElement("div"); d.className="m"+(me?" me":""); d.textContent=text; log.appendChild(d); scrollLog(); return d;
+  }
+  function typing(cb){
+    if(reduced){cb();return;}
+    busy=true;
+    var d=document.createElement("div"); d.className="m typing"; d.innerHTML="<i></i><i></i><i></i>"; log.appendChild(d); scrollLog();
+    setTimeout(function(){ d.remove(); busy=false; cb(); },600);
+  }
+  function showReplies(opts){
+    rep.textContent="";
+    (opts||[]).forEach(function(o){
+      var b=document.createElement("button"); b.type="button"; b.className="rp"; b.textContent=o;
+      b.addEventListener("click",function(){answer(o)}); rep.appendChild(b);
+    });
+  }
+  function ask(){
+    var s=STEPS[step]; showReplies([]);
+    typing(function(){ add(s.q,false); showReplies(s.o); });
+  }
+  function waLink(){
+    var t="Hi Light, I found your portfolio. I need "+(ans.type||"a video").toLowerCase()+" for "+(ans.plat||"my brand")+" ("+(ans.vol||"one video").toLowerCase()+").";
+    if(ans.notes) t+=" "+ans.notes;
+    return {text:t,url:"https://wa.me/"+NUM+"?text="+encodeURIComponent(t)};
+  }
+  function finish(){
+    showReplies([]);
+    typing(function(){
+      var w=waLink();
+      add("Done. This is the message I'll send:",false);
+      add(w.text,false);
+      var d=add("Tap to send it to Light on WhatsApp.",false);
+      var a=document.createElement("a"); a.className="wa-btn"; a.href=w.url; a.target="_blank"; a.rel="noopener"; a.textContent="Continue on WhatsApp"; d.appendChild(document.createElement("br")); d.appendChild(a);
+      var n=document.createElement("span"); n.className="num"; n.textContent="Or save the number: "+DISP; d.appendChild(n);
+      var r=document.createElement("button"); r.type="button"; r.className="again"; r.textContent="Start over"; r.addEventListener("click",start); d.appendChild(r);
+      scrollLog();
+    });
+  }
+  function answer(text){
+    text=(text||"").trim(); if(!text||busy) return;
+    var s=STEPS[step]; add(text,true);
+    ans[s.k]=(s.k==="notes"&&text.toLowerCase()==="skip")?"":text;
+    step++; input.value="";
+    if(step<STEPS.length) ask(); else finish();
+  }
+  function start(){ log.textContent=""; ans={}; step=0; started=true; ask(); }
+  function open(){
+    panel.classList.add("open"); panel.setAttribute("aria-hidden","false"); fab.setAttribute("aria-expanded","true");
+    if(!started) start();
+    setTimeout(function(){input.focus()},120);
+  }
+  function close(){ panel.classList.remove("open"); panel.setAttribute("aria-hidden","true"); fab.setAttribute("aria-expanded","false"); fab.focus(); }
+  fab.addEventListener("click",function(){ panel.classList.contains("open")?close():open(); });
+  $("#chat-x").addEventListener("click",close);
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&panel.classList.contains("open")) close(); });
+  form.addEventListener("submit",function(e){ e.preventDefault(); answer(input.value); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-openchat]"),function(b){ b.addEventListener("click",open); });
+})();
+</script>
+
+</body></html>
